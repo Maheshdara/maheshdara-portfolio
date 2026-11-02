@@ -15,6 +15,29 @@ function ContactForm() {
     message: "",
   });
 
+
+   useEffect(() => {
+    const url = "https://maheshdara-portfolio-1.onrender.com/";
+
+    const pingServer = async () => {
+      try {
+        const response = await fetch(url);
+        console.log("Server ping successful:", response.status);
+      } catch (error) {
+        console.error("Server ping failed:", error);
+      }
+    };
+
+    // Call immediately when component mounts
+    pingServer();
+
+    // Call every 10 minutes
+    // const intervalId = setInterval(pingServer, 10 * 60 * 1000);
+
+    // Cleanup when component unmounts
+    // return () => clearInterval(intervalId);
+  }, []);
+
   const checkRequired = () => {
     if (userInput.email && userInput.message && userInput.name) {
       setError({ ...error, required: false });
